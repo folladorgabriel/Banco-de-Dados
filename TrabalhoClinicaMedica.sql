@@ -169,6 +169,73 @@ insert into Especialidade(Nome) values
 ('Radiologia'),
 ('Diagnóstico por Imagem');
 
+insert into Exame(Data_Exame, Nome, Diagnóstico) value
+('2022-01-01', 'Dermatoscopia', 'Câncer de Pele'),
+('2022-02-03', 'Eletrocardiograma', 'Insuficiência Cardíaca'),
+('2022-03-02', 'Glicemia', 'Avaliar metabolismo'),
+('2022-03-15', 'Colposcopia', 'Avaliar colo do útero, útero e ovários'),
+('2022-04-7', 'Ultrassonografia Obstétrica', 'Monitorar o desenvolvimento do feto e a saúde materna'),
+('2022-04-21', 'Ressonância magnética', 'AVC'),
+('2022-05-30', 'Tomografia', 'Avaliar ossos, articulações, ligamentos e cartilagens'),
+('2022-06-04', 'Raio-X', 'Diagnosticar fraturas, luxações e lesões de tecidos moles'),
+('2022-06-12', 'Exames de sangue, urina e fezes', 'Monitorar desenvolvimento, detectar infecções e deficiências'),
+('2022-07-01', 'Avaliação clínica e psicológica,', 'Diagnosticar transtornos mentais e excluir causas orgânicas'),
+('2022-07-10', 'Ultrassom', 'Visualizar órgãos e estruturas internas'),
+('2022-08-12', 'PET-CT,', 'Fornecer imagens detalhadas para diagnóstico preciso');
+
+INSERT INTO Médico (Nome, Crm, Telefone, Email, Cpf) VALUES
+('Dr. João Silva', 'CRM12345SP', '(11) 91234-5678', 'joao.silva@clinicavida.com', '123.456.789-00'),
+('Dra. Maria Oliveira', 'CRM67890RJ', '(21) 99876-5432', 'maria.oliveira@saudebem.com', '234.567.890-11'),
+('Dr. Pedro Santos', 'CRM11223MG', '(31) 98765-4321', 'pedro.santos@hospitalcentral.com', '345.678.901-22'),
+('Dra. Ana Costa', 'CRM33445RS', '(51) 92345-6789', 'ana.costa@clinicageral.com', '456.789.012-33'),
+('Dr. Lucas Pereira', 'CRM55667BA', '(71) 98877-6655', 'lucas.pereira@coracaoemdia.com', '567.890.123-44'),
+('Dra. Carla Mendes', 'CRM77889PR', '(41) 99788-5544', 'carla.mendes@vidasaude.com', '678.901.234-55'),
+('Dr. Rafael Lima', 'CRM99001PE', '(81) 91234-4433', 'rafael.lima@neurocenter.com', '789.012.345-66'),
+('Dra. Beatriz Rocha', 'CRM22334SC', '(48) 99654-3322', 'beatriz.rocha@pediatriabrasil.com', '890.123.456-77'),
+('Dr. Fernando Alves', 'CRM44556GO', '(62) 98543-2211', 'fernando.alves@ortoclinic.com', '901.234.567-88'),
+('Dra. Juliana Ribeiro', 'CRM66778CE', '(85) 99911-2200', 'juliana.ribeiro@mulheresaude.com', '012.345.678-99');
+
+INSERT INTO Paciente (Nome, Cpf, Data_Nascimento, Sexo, Telefone, Email, Endereço, Bairro) VALUES
+('João Pedro da Silva', '123.456.789-00', '1990-03-15', 'M', '(11) 91234-5678', 'joao.silva@email.com', 'Rua das Flores, 123', 'Centro'),
+('Maria Fernanda Alves', '234.567.890-11', '1985-07-22', 'F', '(21) 99876-5432', 'maria.alves@email.com', 'Av. Atlântica, 456', 'Copacabana'),
+('Carlos Eduardo Lima', '345.678.901-22', '1978-12-05', 'M', '(31) 98765-4321', 'carlos.lima@email.com', 'Rua dos Andradas, 789', 'Savassi'),
+('Ana Paula Rocha', '456.789.012-33', '1992-09-18', 'F', '(51) 92345-6789', 'ana.rocha@email.com', 'Rua Bento Gonçalves, 55', 'Cidade Baixa'),
+('Lucas Henrique Souza', '567.890.123-44', '1995-02-10', 'M', '(71) 98877-6655', 'lucas.souza@email.com', 'Rua Bahia, 890', 'Pituba'),
+('Beatriz Mendes Costa', '678.901.234-55', '1988-05-30', 'F', '(41) 99788-5544', 'beatriz.costa@email.com', 'Rua XV de Novembro, 300', 'Batel'),
+('Rafael Tavares Moreira', '789.012.345-66', '1980-10-12', 'M', '(81) 91234-4433', 'rafael.moreira@email.com', 'Rua Aurora, 210', 'Boa Vista'),
+('Juliana Pereira Lima', '890.123.456-77', '1993-01-25', 'F', '(48) 99654-3322', 'juliana.lima@email.com', 'Rua das Acácias, 45', 'Trindade'),
+('Fernando Carvalho Nunes', '901.234.567-88', '1986-06-09', 'M', '(62) 98543-2211', 'fernando.nunes@email.com', 'Rua Goiás, 12', 'Setor Oeste'),
+('Camila Ribeiro Duarte', '012.345.678-99', '1998-11-03', 'F', '(85) 99911-2200', 'camila.duarte@email.com', 'Av. Beira Mar, 789', 'Meireles');
+
+/*Criar 3 UPDATES em quaisquer das tabelas.
+Criar 3 UPDATES com Where em quaisquer das tabelas.
+Criar 3 ALTER TABLE em quaisquer das tabelas, podendo utilizar change ou modify.
+Criar 10 SELECT com Where (LIKE, IN, BETWEEN ETC)
+Criar 5 SELECT que contenham ORDER BY*/
+
+update Paciente
+set Endereço = "Rua Evaristo De Castro, 190"
+where Nome = "Carlos Eduardo Lima";
+
+update Médico
+set Telefone = "(54) 999823617"
+where Cpf = "456.789.012-33";
+
+update Exame 
+set Diagnóstico = "Ressonância"
+where Nome = "Ultrassom";
+
+update Convênio 
+set Nome = "IPE"
+where Cpf = "616.671.400-94";
+
+update Consulta
+set Diagnóstico = "Influenza"
+where Data_Consulta = "2022-01-01";
+
+update Cidade
+set Nome = "Marcelino Ramos"
+where Nome = "Erechim";
 
 select * from Cidade;
 select * from Consulta;
@@ -177,9 +244,3 @@ select * from Especialidade;
 select * from Exame;
 select * from Médico;
 select * from Paciente;
-
-
-
-
-
-
