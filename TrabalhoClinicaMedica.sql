@@ -169,25 +169,18 @@ insert into Consulta(Data_Consulta, Hora, Diagnóstico) values
 ('2025-03-05', '07:40', 'Bronquite'),
 ('2025-09-25', '11:10', 'Covid-19 leve');
 
-insert into Convênio(Nome, CPF, Plano) values
-('IPE', '805.961.830-03', 'Cobertura Total'),
-('Unimed', '616.671.400-94', 'Cobertura Parcial em todos Procedimentos'),
-('Unimed', '519.638.330-15', 'Cobertura Total'),
-('Bradesco Saúde', '751.799.270-80', 'Cobertura Total para Consultas'),
-('Hapvida', '851.820.230-22', 'Cobertura Parcial em Consultas'),
-('SulAmérica', '199.311.260-00', 'Cobertura Total em Cirurgias'),
-('IPE', '967.362.670-72', 'Cobertura Total'),
-('Care Plus', '271.037.220-72', 'Cobertura Parcial em Consultas'),
-('Greenline Saúde', '713.245.180-49', 'Cobertura Parcial em todos Procedimentos'),
-('QSaúde', '364.868.290-36', 'Cobertura Total'),
-('Unimed', '123.123.123-12', 'Cobertura Total'),
-('Bradesco Saúde', '234.234.234-23', 'Cobertura Parcial'),
-('SulAmérica', '345.345.345-34', 'Cobertura Total'),
-('Amil', '456.456.456-45', 'Cobertura Parcial em Consultas'),
-('Hapvida', '567.567.567-56', 'Cobertura Total'),
-('NotreDame Intermédica', '678.678.678-67', 'Cobertura Parcial'),
-('Porto Seguro Saúde', '789.789.789-78', 'Cobertura Total'),
-('Care Plus', '890.890.890-89', 'Cobertura Total em Cirurgias');
+insert into Convênio(Nome) values
+('IPE'),
+('Unimed'),
+('Bradesco Saúde'),
+('Hapvida'),
+('SulAmérica'),
+('Care Plus'),
+('Greenline Saúde'),
+('QSaúde'),
+('Amil'),
+('NotreDame Intermédica'),
+('Porto Seguro Saúde');
 
 insert into Especialidade(Nome) values
 ('Demartologia'),
@@ -233,8 +226,8 @@ insert into Exame(Data_Exame, Nome, Diagnóstico) values
 ('2024-08-09', 'Ressonância do Crânio', 'Sinusite'),
 ('2025-02-27', 'Teste de Covid-19', 'Negativo');
 
-insert into Médico (Nome, Crm, Telefone, Email, Cpf) values
-('Dr. João Silva', 'CRM12345SP', '(11) 91234-5678', 'joao.silva@clinicavida.com', '123.456.789-00'),
+insert into Médico (Nome, Crm, Telefone, Email, Cpf, idEspecialidade) values
+('Dr. João Silva', 'CRM12345SP', '(11) 91234-5678', 'joao.silva@clinicavida.com', '123.456.789-00', 'Cardiologista'), /* Botar especilidade do medico*/
 ('Dra. Maria Oliveira', 'CRM67890RJ', '(21) 99876-5432', 'maria.oliveira@saudebem.com', '234.567.890-11'),
 ('Dr. Pedro Santos', 'CRM11223MG', '(31) 98765-4321', 'pedro.santos@hospitalcentral.com', '345.678.901-22'),
 ('Dra. Ana Costa', 'CRM33445RS', '(51) 92345-6789', 'ana.costa@clinicageral.com', '456.789.012-33'),
@@ -251,8 +244,8 @@ insert into Médico (Nome, Crm, Telefone, Email, Cpf) values
 ('Dr. Thiago Ribeiro', 'CRM55667SC', '(48) 95678-7777', 'thiago.ribeiro@medfloripa.com', '707.808.909-10'),
 ('Dra. Amanda Farias', 'CRM66778PR', '(41) 95432-8888', 'amanda.farias@vidaparnaiba.com', '808.909.010-11');
 
-insert into Paciente (Nome, Cpf, Data_Nascimento, Sexo, Telefone, Email, Endereço, Bairro) values
-('João Pedro da Silva', '123.456.789-00', '1990-03-15', 'M', '(11) 91234-5678', 'joao.silva@email.com', 'Rua das Flores, 123', 'Centro'),
+insert into Paciente (Nome, Cpf, Data_Nascimento, Sexo, Telefone, Email, Endereço, Bairro, idConvênio, idCidade) values 
+('João Pedro da Silva', '123.456.789-00', '1990-03-15', 'M', '(11) 91234-5678', 'joao.silva@email.com', 'Rua das Flores, 123', 'Centro', 'Unimed', 'Erechim'), /*Adiciona o convênio e cidade, tem um exemplo nessa linha*/
 ('Maria Fernanda Alves', '234.567.890-11', '1985-07-22', 'F', '(21) 99876-5432', 'maria.alves@email.com', 'Av. Atlântica, 456', 'Copacabana'),
 ('Carlos Eduardo Lima', '345.678.901-22', '1978-12-05', 'M', '(31) 98765-4321', 'carlos.lima@email.com', 'Rua dos Andradas, 789', 'Savassi'),
 ('Ana Paula Rocha', '456.789.012-33', '1992-09-18', 'F', '(51) 92345-6789', 'ana.rocha@email.com', 'Rua Bento Gonçalves, 55', 'Cidade Baixa'),
@@ -374,7 +367,7 @@ SELECT Nome, Crm, Telefone, Email FROM Médico ORDER BY Crm ASC;
 SELECT Data_Exame, Nome, Diagnóstico FROM Exame ORDER BY Data_Exame ASC;
 SELECT Nome, UF, Regiao FROM Cidade ORDER BY Regiao ASC, Nome ASC;
 
-/* 5x Inner join */
+/* 5x Inner join 
 
 SELECT exame.Data_Exame, consulta.Data_Consulta
 FROM Exame
@@ -404,7 +397,7 @@ INNER JOIN Consulta ON Exame.idConsulta = Consulta.idConsulta
 INNER JOIN Paciente ON Exame.idPaciente = Paciente.idPaciente
 INNER JOIN Médico ON Exame.idMédico = Médico.idMédico;
 
-/* 3x Left join */
+/* 3x Left join 
 
 SELECT Consulta.Data_Consulta, Consulta.Hora, Consulta.Diagnóstico, Exame.Nome AS Nome_Exame, Exame.Diagnóstico AS Diagnostico_Exame
 FROM Consulta
@@ -416,8 +409,15 @@ LEFT JOIN Especialidade ON Médico.idEspecialidade = Especialidade.idEspecialida
 
 SELECT Paciente.Nome AS Nome_Paciente, Paciente.Email, Cidade.Nome AS Cidade
 FROM Paciente
-LEFT JOIN Cidade ON Paciente.idCidade = Cidade.idCidade
+LEFT JOIN Cidade ON Paciente.idCidade = Cidade.idCidade;
 
+SELECT Plano, Nome
+FROM Convênio
+GROUP BY Plano, Nome
+ORDER BY Plano;
+
+select * from Paciente;
+delete from paciente;
 
 /* select * from Cidade;
 select * from Consulta;
