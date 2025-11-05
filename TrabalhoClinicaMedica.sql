@@ -46,7 +46,8 @@ idConsulta int not null auto_increment primary key,
     Data_Consulta date not null,
     Hora time not null,
     Observações varchar(100),
-    Diagnóstico varchar(100) not null
+    Diagnóstico varchar(100) not null,
+    valor varchar(100)
 );
 
 create table Exame (
@@ -97,9 +98,9 @@ add constraint idConsulta_fk
 foreign key(idConsulta) references Exame(idConsulta);
 
 alter table Consulta
-add column idExame int not null,
-add constraint idExame_fk
-foreign key(idExame) references Exame(idExame);
+add column idEspecialidade int not null,
+add constraint idEspecialidade_fk
+foreign key(idEspecialidade) references Consulta(idEspecialidade);
 
 alter table Convênio
 add column idPaciente int not null,
@@ -141,34 +142,69 @@ when uf = "AC" or uf = "AM" or uf = "RO" or uf = "PA" or uf = "TO" or uf = "AP" 
 when uf = "RS" or uf = "SC" or uf = "PR" then "Sul"
 end;
 
-insert into Consulta(Data_Consulta, Hora, Diagnóstico) values
-('2022-01-01', '7:35', 'Covid-19'),
-('2022-03-10', '7:50', 'Influenza-A'),
-('2022-07-20', '8:35', 'H1N1'),
-('2022-11-30', '10:45', 'H3N2'),
-('2023-01-01', '6:30', 'H3N2'),
-('2023-04-10', '14:35', 'Influenza-B'),
-('2023-07-20', '21:10', 'Influenza-C'),
-('2024-02-26', '16:40', 'Influenza-D'),
-('2024-03-15', '10:20', 'Dengue'),
-('2024-05-10', '15:35', 'Sarampo'),
-('2024-06-12', '12:00', 'Catapora'),
-('2024-10-1', '17:50', 'Chikungunya'),
-('2025-08-27', '7:55', 'HPV'),
-('2025-08-30', '9:40', 'Miningite'),
-('2025-10-07', '11:10', 'Tuberculose'),
-('2025-11-03', '7:10', 'Caxumba'),
-('2025-12-09', '14:45', 'Rubéola'),
-('2026-01-27', '17:55', 'AIDS'),
-('2023-02-14', '08:30', 'Gripe comum'),
-('2023-05-19', '09:00', 'Dengue'),
-('2023-09-01', '10:15', 'Sinusite'),
-('2024-01-22', '13:00', 'Alergia respiratória'),
-('2024-04-30', '16:45', 'Diabetes tipo 2'),
-('2024-07-10', '18:20', 'Hipertensão'),
-('2025-03-05', '07:40', 'Bronquite'),
-('2025-09-25', '11:10', 'Covid-19 leve');
 
+INSERT INTO Consulta (Data_Consulta, Hora, Diagnóstico, Valor, idPaciente, idMédico, idEspecialidade) VALUES
+('2022-01-01', '7:35', 'Covid-19', 'R$220.00', 1, 1, 1),
+('2022-03-10', '7:50', 'Influenza-A', 'R$175.00', 2, 2, 3),
+('2022-07-20', '8:35', 'H1N1', 'R$210.00', 3, 3, 3),
+('2022-11-30', '10:45', 'H3N2', 'R$185.00', 4, 4, 2),
+('2023-01-01', '6:30', 'H3N2', 'R$185.00', 5, 5, 6),
+('2023-04-10', '14:35', 'Influenza-B', 'R$190.00', 6, 6, 4),
+('2023-07-20', '21:10', 'Influenza-C', 'R$200.00', 7, 7, 5),
+('2023-04-10', '14:35', 'Influenza-B', 'R$190.00', 8, 8, 8),
+('2024-03-15', '10:20', 'Dengue', 'R$260.00', 9, 9, 7),
+('2024-05-10', '15:35', 'Sarampo', 'R$230.00', 10, 10, 10),
+('2024-06-12', '12:00', 'Catapora', 'R$160.00', 11, 11, 9),
+('2024-10-01', '17:50', 'Chikungunya', 'R$240.00', 12, 12, 13),
+('2025-08-27', '7:55', 'HPV', 'R$300.00', 13, 13, 12),
+('2025-08-30', '9:40', 'Miningite', 'R$290.00', 14, 14, 11),
+('2025-10-07', '11:10', 'Tuberculose', 'R$270.00', 15, 15, 15),
+('2025-11-03', '7:10', 'Caxumba', 'R$175.00', 16, 16, 14),
+('2025-12-09', '14:45', 'Rubéola', 'R$160.00', 17, 17, 5),
+('2026-01-27', '17:55', 'AIDS', 'R$310.00', 18, 18, 7),
+('2023-02-14', '08:30', 'Gripe comum', 'R$110.00', 19, 19, 2),
+('2023-05-19', '09:00', 'Dengue', 'R$260.00', 20, 20, 1),
+('2023-09-01', '10:15', 'Sinusite', 'R$130.00', 21, 21, 3),
+('2024-01-22', '13:00', 'Alergia respiratória', 'R$180.00', 22, 22, 4),
+('2024-04-30', '16:45', 'Diabetes tipo 2', 'R$260.00', 23, 23, 2),
+('2024-07-10', '18:20', 'Hipertensão', 'R$195.00', 24, 24, 6),
+('2025-03-05', '07:40', 'Bronquite', 'R$165.00', 25, 25, 5),
+('2025-09-30', '11:10', 'Covid-19 leve', 'R$220.00', 1, 26, 7),
+('2025-10-10', '17:50', 'Influenza-A', 'R$175.00', 2, 27, 8),
+('2025-11-10', '14:35', 'Influenza-B', 'R$190.00', 3, 28, 9),
+('2025-11-12', '14:35', 'Influenza-B', 'R$190.00', 4, 29, 10),
+('2025-12-22', '7:55', 'HPV', 'R$300.00', 5, 1, 1),
+('2025-12-30', '9:40', 'Miningite', 'R$290.00', 6, 2, 3),
+('2026-01-27', '17:55', 'AIDS', 'R$310.00', 7, 3, 3),
+('2026-02-22', '17:55', 'AIDS', 'R$310.00', 8, 4, 2),
+('2026-03-21', '7:35', 'Covid-19', 'R$220.00', 9, 5, 6),
+('2026-03-23', '11:10', 'Tuberculose', 'R$270.00', 10, 6, 4),
+('2026-04-22', '13:00', 'Alergia respiratória', 'R$180.00', 11, 7, 5),
+('2026-04-30', '16:45', 'Diabetes tipo 2', 'R$260.00', 12, 8, 8),
+('2026-05-10', '18:20', 'Hipertensão', 'R$195.00', 13, 9, 7),
+('2026-06-30', '10:45', 'H3N2', 'R$185.00', 14, 10, 10),
+('2026-09-01', '6:30', 'H3N2', 'R$185.00', 15, 11, 9),
+('2026-10-07', '11:10', 'Tuberculose', 'R$270.00', 16, 12, 13),
+('2026-11-03', '7:10', 'Caxumba', 'R$175.00', 17, 13, 12),
+('2027-01-01', '14:45', 'Rubéola', 'R$160.00', 18, 14, 11),
+('2027-01-09', '10:15', 'Sinusite', 'R$130.00', 19, 15, 15),
+('2027-02-22', '13:00', 'Alergia respiratória', 'R$180.00', 20, 16, 14),
+('2027-04-30', '16:45', 'Diabetes tipo 2', 'R$260.00', 21, 17, 5),
+('2027-06-12', '08:30', 'Covid-19', 'R$220.00', 22, 18, 7),
+('2027-07-18', '09:50', 'Dengue', 'R$260.00', 23, 19, 2),
+('2027-08-25', '11:20', 'H3N2', 'R$185.00', 24, 20, 1),
+('2027-09-30', '13:10', 'Hipertensão', 'R$195.00', 25, 21, 3),
+('2027-10-12', '15:35', 'Bronquite', 'R$165.00', 1, 22, 4),
+('2027-11-01', '17:00', 'Influenza-A', 'R$175.00', 2, 23, 2),
+('2027-11-15', '08:25', 'Influenza-B', 'R$190.00', 3, 24, 6),
+('2027-11-20', '10:40', 'Covid-19 leve', 'R$220.00', 4, 25, 5),
+('2027-12-05', '12:55', 'Gripe comum', 'R$110.00', 5, 26, 7),
+('2027-12-10', '14:45', 'Diabetes tipo 2', 'R$260.00', 6, 27, 8),
+('2027-12-15', '16:20', 'AIDS', 'R$310.00', 7, 28, 9),
+('2027-12-22', '18:10', 'Sinusite', 'R$130.00', 8, 29, 10),
+('2027-12-30', '19:45', 'Caxumba', 'R$175.00', 9, 1, 1),
+('2027-12-31', '21:00', 'Tuberculose', 'R$270.00', 10, 2, 3);
+ 
 insert into Convênio(Nome) values
 ('IPE'),
 ('Unimed'),
@@ -204,27 +240,47 @@ insert into Especialidade(Nome) values
 ('Reumatologia'),
 ('Pneumologia');
 
-insert into Exame(Data_Exame, Nome, Diagnóstico) values
-('2022-01-01', 'Dermatoscopia', 'Câncer de Pele'),
-('2022-02-03', 'Eletrocardiograma', 'Insuficiência Cardíaca'),
-('2022-03-02', 'Glicemia', 'Avaliar metabolismo'),
-('2022-03-15', 'Colposcopia', 'Avaliar colo do útero, útero e ovários'),
-('2022-04-7', 'Ultrassonografia Obstétrica', 'Monitorar o desenvolvimento do feto e a saúde materna'),
-('2022-04-21', 'Ressonância magnética', 'AVC'),
-('2022-05-30', 'Tomografia', 'Avaliar ossos, articulações, ligamentos e cartilagens'),
-('2022-06-04', 'Raio-X', 'Diagnosticar fraturas, luxações e lesões de tecidos moles'),
-('2022-06-12', 'Exames de sangue, urina e fezes', 'Monitorar desenvolvimento, detectar infecções e deficiências'),
-('2022-07-01', 'Avaliação clínica e psicológica,', 'Diagnosticar transtornos mentais e excluir causas orgânicas'),
-('2022-07-10', 'Ultrassom', 'Visualizar órgãos e estruturas internas'),
-('2022-08-12', 'PET-CT,', 'Fornecer imagens detalhadas para diagnóstico preciso'),
-('2023-02-10', 'Hemograma Completo', 'Anemia leve'),
-('2023-03-18', 'Ultrassonografia Abdominal', 'Cálculo renal'),
-('2023-06-25', 'Ecocardiograma', 'Insuficiência cardíaca leve'),
-('2023-08-05', 'Endoscopia', 'Gastrite crônica'),
-('2024-01-14', 'Colonoscopia', 'Pólipos intestinais'),
-('2024-03-21', 'Raio-X do Tórax', 'Bronquite'),
-('2024-08-09', 'Ressonância do Crânio', 'Sinusite'),
-('2025-02-27', 'Teste de Covid-19', 'Negativo');
+INSERT INTO Exame (Data_Exame, Nome, Diagnóstico) VALUES
+('2020-01-15', 'Dermatoscopia', 'Lesão benigna removida com sucesso'),
+('2020-03-22', 'Eletrocardiograma', 'Arritmia leve detectada'),
+('2020-05-10', 'Glicemia', 'Níveis normais de glicose'),
+('2020-06-18', 'Colposcopia', 'Inflamação leve do colo uterino'),
+('2020-09-03', 'Ultrassonografia Obstétrica', 'Gestação de 12 semanas'),
+('2021-02-14', 'Ressonância magnética', 'Sem alterações cerebrais'),
+('2021-04-07', 'Tomografia', 'Fratura óssea identificada'),
+('2021-07-12', 'Raio-X', 'Lesão leve na clavícula'),
+('2021-08-21', 'Exames de sangue, urina e fezes', 'Deficiência de ferro detectada'),
+('2021-10-30', 'Avaliação clínica e psicológica', 'Transtorno de ansiedade leve'),
+('2022-01-11', 'Ultrassom', 'Órgãos abdominais normais'),
+('2022-02-25', 'PET-CT', 'Atividade tumoral ausente'),
+('2022-03-14', 'Hemograma Completo', 'Leucócitos ligeiramente elevados'),
+('2022-04-09', 'Ultrassonografia Abdominal', 'Fígado levemente aumentado'),
+('2022-06-05', 'Ecocardiograma', 'Função cardíaca preservada'),
+('2022-07-17', 'Endoscopia', 'Refluxo gastroesofágico moderado'),
+('2022-09-13', 'Colonoscopia', 'Pólipos benignos removidos'),
+('2022-10-08', 'Raio-X do Tórax', 'Sem alterações pulmonares'),
+('2022-12-21', 'Ressonância do Crânio', 'Desvio de septo nasal detectado'),
+('2023-01-16', 'Teste de Covid-19', 'Negativo'),
+('2023-03-28', 'Eletrocardiograma', 'Isquemia leve identificada'),
+('2023-04-22', 'Hemograma Completo', 'Plaquetas normais'),
+('2023-06-15', 'Dermatoscopia', 'Nevos sem risco de malignidade'),
+('2023-08-03', 'Glicemia', 'Pré-diabetes controlado'),
+('2023-09-20', 'Ultrassom', 'Rins com leve retenção líquida'),
+('2023-11-11', 'Colposcopia', 'Exame normal'),
+('2024-01-10', 'Raio-X do Tórax', 'Bronquite leve'),
+('2024-02-18', 'Ressonância do Crânio', 'Sinusite frontal detectada'),
+('2024-04-29', 'Endoscopia', 'Gastrite leve'),
+('2024-06-12', 'Teste de Covid-19', 'Positivo'),
+('2024-07-23', 'Ecocardiograma', 'Insuficiência cardíaca leve'),
+('2024-09-14', 'Tomografia', 'Lesão óssea cicatrizada'),
+('2024-10-28', 'Eletrocardiograma', 'Ritmo sinusal normal'),
+('2024-11-19', 'Ressonância magnética', 'Compressão lombar moderada'),
+('2025-01-07', 'Ultrassonografia Abdominal', 'Cisto renal simples'),
+('2025-02-15', 'Raio-X', 'Pulmões limpos'),
+('2025-03-10', 'Exames de sangue, urina e fezes', 'Resultados dentro da normalidade'),
+('2025-04-06', 'Ultrassonografia Obstétrica', 'Gestação saudável, 24 semanas'),
+('2025-05-17', 'Dermatoscopia', 'Eczema tratado'),
+('2025-06-29', 'Endoscopia', 'Úlcera cicatrizada');
 
 insert into Médico (Nome, Crm, Telefone, Email, Cpf, idEspecialidade) values
 ('Dr. João Silva', 'CRM12345SP', '(11) 91234-5678', 'joao.silva@clinicavida.com', '123.456.789-00', '1'), /* Botar especilidade do medico*/
@@ -242,7 +298,20 @@ insert into Médico (Nome, Crm, Telefone, Email, Cpf, idEspecialidade) values
 ('Dr. Felipe Costa', 'CRM33445BA', '(71) 99876-5555', 'felipe.costa@bahiasaude.com', '505.606.707-88', '12'),
 ('Dra. Larissa Almeida', 'CRM44556PE', '(81) 98765-6666', 'larissa.almeida@neuroclinic.com', '606.707.808-99', '11'),
 ('Dr. Thiago Ribeiro', 'CRM55667SC', '(48) 95678-7777', 'thiago.ribeiro@medfloripa.com', '707.808.909-10', '15'),
-('Dra. Amanda Farias', 'CRM66778PR', '(41) 95432-8888', 'amanda.farias@vidaparnaiba.com', '808.909.010-11' ,'14');
+('Dra. Amanda Farias', 'CRM66778PR', '(41) 95432-8888', 'amanda.farias@vidaparnaiba.com', '808.909.010-11' ,'14'),
+('Dra. Sara Bertolla', 'CRM12334RS', '(54) 99456-3251', 'sara.cbertollas@hospitalcaridade.com', '153.687.917-11', '5'),
+('Dr. Gabriel Follador', 'CRM36781SC', '(48) 99456-6578', 'gabriel.follador@hospitalbrasil.com', '456.692.510-55', '7'),
+('Dra. Luciane Agliardi', 'CRM75290PR', '(81) 94580-3379', 'luciane.agliardi@vidasaude.com', '582.511.582-77', '2'),
+('Dr. Henrique Duarte', 'CRM88101SP', '(11) 91122-3344', 'henrique.duarte@clinicavida.com', '111.222.333-44', '1'),
+('Dra. Camila Freitas', 'CRM77220RJ', '(21) 92233-4455', 'camila.freitas@saudebem.com', '222.333.444-55', '3'),
+('Dr. Marcos Vinícius', 'CRM66331MG', '(31) 93344-5566', 'marcos.vinicius@hospitalcentral.com', '333.444.555-66', '4'),
+('Dra. Fernanda Lopes', 'CRM55442RS', '(51) 94455-6677', 'fernanda.lopes@clinicageral.com', '444.555.666-77', '2'),
+('Dr. Eduardo Nunes', 'CRM44553BA', '(71) 95566-7788', 'eduardo.nunes@coracaoemdia.com', '555.666.777-88', '6'),
+('Dra. Juliana Prado', 'CRM33664PR', '(41) 96677-8899', 'juliana.prado@vidasaude.com', '666.777.888-99', '5'),
+('Dr. Mateus Barreto', 'CRM22775PE', '(81) 97788-9900', 'mateus.barreto@neurocenter.com', '777.888.999-00', '7'),
+('Dra. Isabela Torres', 'CRM11886SC', '(48) 98899-0011', 'isabela.torres@pediatriabrasil.com', '888.999.000-11', '8'),
+('Dr. Vinícius Cardoso', 'CRM99007RS', '(51) 99900-1122', 'vinicius.cardoso@clinicars.com', '999.000.111-22', '9'),
+('Dra. Letícia Moraes', 'CRM88118SP', '(11) 90011-2233', 'leticia.moraes@saudesp.com', '000.111.222-33', '10');
 
 insert into Paciente (Nome, Cpf, Data_Nascimento, Sexo, Telefone, Email, Endereço, Bairro, idConvênio, idCidade) values 
 ('João Pedro da Silva', '123.456.789-00', '1990-03-15', 'M', '(11) 91234-5678', 'joao.silva@email.com', 'Rua das Flores, 123', 'Centro', '2', '1'), /*Adiciona o convênio e cidade, tem um exemplo nessa linha*/
@@ -258,9 +327,19 @@ insert into Paciente (Nome, Cpf, Data_Nascimento, Sexo, Telefone, Email, Endere�
 ('Pedro Henrique Ramos', '111.222.333-44', '1991-04-12', 'M', '(11) 97777-1111', 'pedro.ramos@email.com', 'Rua Aroeiras, 20', 'Jardim Paulista','10', '7'),
 ('Larissa Nogueira Lopes', '222.333.444-55', '1987-09-09', 'F', '(21) 98888-2222', 'larissa.lopes@email.com', 'Av. Copacabana, 120', 'Ipanema', '10', '8'),
 ('Ricardo Lima Santos', '333.444.555-66', '1979-01-28', 'M', '(31) 97777-3333', 'ricardo.santos@email.com', 'Rua Ouro Preto, 500', 'Savassi','8','7'),
-('Juliana Costa Pereira', '444.555.666-77', '1994-06-17', 'F', '(51) 95678-4444', 'juliana.pereira@email.com', 'Rua Osório, 80', 'Moinhos de Vento', '0', '4');
+('Juliana Costa Pereira', '444.555.666-77', '1994-06-17', 'F', '(51) 95678-4444', 'juliana.pereira@email.com', 'Rua Osório, 80', 'Moinhos de Vento', '0', '4'),
+('Maria Cecilia Cardoso', '012.572.159-11', '2000-04-22', 'F', '(54) 99865-5576', 'maria.cardoso@email.com', 'Av. Paulista, 478', 'Santos', '3', '5'),
+('Paulo Henrique Andrade', '555.666.777-88', '1983-08-14', 'M', '(31) 98844-5566', 'paulo.andrade@email.com', 'Rua dos Girassóis, 345', 'Funcionários', '2', '7'),
+('Tatiane Moraes Silva', '666.777.888-99', '1997-03-27', 'F', '(21) 98777-6655', 'tatiane.silva@email.com', 'Av. das Américas, 800', 'Barra da Tijuca', '5', '8'),
+('Marcelo Augusto Pires', '777.888.999-00', '1989-11-10', 'M', '(11) 91222-3344', 'marcelo.pires@email.com', 'Rua das Palmeiras, 110', 'Moema', '1', '1'),
+('Carolina Bastos Faria', '888.999.000-11', '1996-02-08', 'F', '(48) 99123-7788', 'carolina.faria@email.com', 'Rua Florianópolis, 78', 'Centro', '4', '2'),
+('Rodrigo Almeida Cunha', '999.000.111-22', '1981-09-25', 'M', '(85) 98812-9988', 'rodrigo.cunha@email.com', 'Av. Santos Dumont, 250', 'Aldeota', '6', '5'),
+('Fernanda Gomes Barros', '101.112.131-41', '1990-01-30', 'F', '(71) 99198-3344', 'fernanda.barros@email.com', 'Rua das Gaivotas, 65', 'Rio Vermelho', '7', '11'),
+('Eduardo Marques Pinto', '121.314.151-61', '1977-05-12', 'M', '(41) 99222-4433', 'eduardo.pinto@email.com', 'Av. Curitiba, 980', 'Centro', '9', '4'),
+('Gabriela Teles Monteiro', '141.516.171-81', '1995-12-21', 'F', '(62) 98777-5544', 'gabriela.monteiro@email.com', 'Rua Tocantins, 305', 'Setor Bueno', '8', '6'),
+('Leonardo Vieira Castro', '161.718.192-01', '1984-07-03', 'M', '(51) 99345-6677', 'leonardo.castro@email.com', 'Av. Ipiranga, 1000', 'Menino Deus', '10', '10'),
+('Patrícia Nunes Rocha', '181.920.212-23', '1992-10-19', 'F', '(54) 99678-8899', 'patricia.rocha@email.com', 'Rua Bento Gonçalves, 455', 'Centro', '3', '9');
 
-select * from Paciente;
 
 /*Criar 3 UPDATES em quaisquer das tabelas..
 Criar 3 UPDATES com Where em quaisquer das tabelas..
@@ -369,62 +448,89 @@ SELECT Nome, Crm, Telefone, Email FROM Médico ORDER BY Crm ASC;
 SELECT Data_Exame, Nome, Diagnóstico FROM Exame ORDER BY Data_Exame ASC;
 SELECT Nome, UF, Regiao FROM Cidade ORDER BY Regiao ASC, Nome ASC;
 
+/* 5x Group by (3 funções com agregação)
+5x Inner join
+3x Left join */
+
+
+
+/* 5x Group by (3 funções com agregação) */
+		
+SELECT Sala, COUNT(idConsulta) 'Total_Consultas', MAX(Data_Consulta) 'Ultima_Consulta'
+FROM Consulta
+GROUP BY Sala
+ORDER BY Sala ASC;
+
+SELECT Nome 'Nome_Exame', COUNT(idExame) 'Total_Exames'
+FROM Exame
+GROUP BY Nome
+ORDER BY Total_Exames DESC;
+
+SELECT Diagnóstico, COUNT(idConsulta) 'Total_Consultas'
+FROM Consulta
+GROUP BY Diagnóstico
+ORDER BY Total_Consultas DESC;
+
+SELECT especialidade.Nome 'Especialidade', COUNT(médico.idMédico) 'Total_Medicos'
+FROM Médico 
+INNER JOIN Especialidade ON médico.idEspecialidade = especialidade.idEspecialidade
+GROUP BY especialidade.Nome
+ORDER BY Total_Medicos DESC;
+
+SELECT cidade.Nome 'Cidade', COUNT(paciente.idPaciente) 'Total_Pacientes'
+FROM Paciente
+INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade
+GROUP BY cidade.Nome
+ORDER BY Total_Pacientes DESC;
+
+
+
 /* 5x Inner join */
 
-SELECT exame.Data_Exame, consulta.Data_Consulta
-FROM Exame
-INNER JOIN Consulta
-ON exame.Data_Exame = consulta.Data_Consulta;
-
-SELECT Paciente.Nome AS Nome_Paciente, Paciente.Email, Cidade.Nome AS Cidade, Cidade.UF, Cidade.Regiao
+SELECT paciente.Nome 'Nome_Paciente', paciente.Email, cidade.Nome 'Cidade', cidade.UF, cidade.Regiao
 FROM Paciente
-INNER JOIN Cidade ON Paciente.idCidade = Cidade.idCidade;
+INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade;
 
-SELECT Paciente.Nome AS Nome_Paciente, Paciente.Cpf, Convênio.Nome AS Convenio, Convênio.Plano
-FROM Paciente
-INNER JOIN Convênio ON Paciente.idConvênio = Convênio.idConvênio;
+SELECT paciente.Nome 'Nome_Paciente', paciente.Cpf, convênio.Nome 'Nome_Convenio', convênio.Plano
+FROM Paciente 
+INNER JOIN Convênio ON paciente.idConvênio = convênio.idConvênio;
 
-SELECT Médico.Nome AS Nome_Medico, Médico.Crm, Especialidade.Nome AS Especialidade
+SELECT médico.Nome 'Nome_Medico', médico.Crm, especialidade.Nome 'Especialidade'
 FROM Médico
-INNER JOIN Especialidade ON Médico.idEspecialidade = Especialidade.idEspecialidade;
+INNER JOIN Especialidade ON médico.idEspecialidade = especialidade.idEspecialidade;
 
-SELECT Consulta.Data_Consulta, Consulta.Hora, Consulta.Diagnóstico, Paciente.Nome AS Nome_Paciente, Médico.Nome AS Nome_Medico
+SELECT paciente.Nome 'Paciente', cidade.Nome 'Cidade'
+FROM Paciente 
+INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade;
+
+SELECT paciente.Nome 'Paciente', convênio.Nome 'Convenio', convênio.Plano
+FROM Paciente 
+INNER JOIN Convênio ON paciente.idConvênio = convênio.idConvênio;
+
+
+
+/* 3x Left join */
+
+SELECT consulta.idConsulta, consulta.Data_Consulta, consulta.Hora, consulta.Diagnóstico 'Diagnostico_Consulta', exame.Nome 'Nome_Exame', exame.Diagnóstico 'Diagnostico_Exame'
 FROM Consulta
-INNER JOIN Paciente ON Consulta.idPaciente = Paciente.idPaciente
-INNER JOIN Médico ON Consulta.idMédico = Médico.idMédico;
+LEFT JOIN Exame ON consulta.idExame = exame.idExame;
 
-SELECT Exame.Data_Exame, Exame.Nome AS Nome_Exame, Exame.Diagnóstico AS Diagnostico_Exame, Consulta.Data_Consulta, Paciente.Nome AS Nome_Paciente, Médico.Nome AS Nome_Medico
-FROM Exame
-INNER JOIN Consulta ON Exame.idConsulta = Consulta.idConsulta
-INNER JOIN Paciente ON Exame.idPaciente = Paciente.idPaciente
-INNER JOIN Médico ON Exame.idMédico = Médico.idMédico;
-
-/* 3x Left join 
-
-SELECT Consulta.Data_Consulta, Consulta.Hora, Consulta.Diagnóstico, Exame.Nome AS Nome_Exame, Exame.Diagnóstico AS Diagnostico_Exame
-FROM Consulta
-LEFT JOIN Exame ON Consulta.idExame = Exame.idExame;
-
-SELECT Médico.Nome AS Nome_Medico, Médico.Crm, Especialidade.Nome AS Especialidade
+SELECT médico.Nome 'Nome_Medico', médico.Crm, especialidade.Nome 'Especialidade'
 FROM Médico
-LEFT JOIN Especialidade ON Médico.idEspecialidade = Especialidade.idEspecialidade;
+LEFT JOIN Especialidade ON médico.idEspecialidade = especialidade.idEspecialidade;
 
-SELECT Paciente.Nome AS Nome_Paciente, Paciente.Email, Cidade.Nome AS Cidade
-FROM Paciente
-LEFT JOIN Cidade ON Paciente.idCidade = Cidade.idCidade;
+SELECT paciente.Nome 'Nome_Paciente', paciente.Email, cidade.Nome 'Cidade', cidade.UF
+FROM Paciente 
+LEFT JOIN Cidade ON paciente.idCidade = cidade.idCidade;
 
-SELECT Plano, Nome
-FROM Convênio
-GROUP BY Plano, Nome
-ORDER BY Plano;
 
-select * from Paciente;
-delete from paciente;
 
-/* select * from Cidade;
+select * from Cidade;
 select * from Consulta;
 select * from Convênio;
 select * from Especialidade;
 select * from Exame;
 select * from Médico;
-select * from Paciente; */
+select * from Paciente; 
+select * from Médico;
+select * from Paciente; 
