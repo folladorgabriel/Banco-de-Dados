@@ -131,7 +131,8 @@ insert into Cidade(Nome,UF) values
 ('Cuiabá', 'MT'),
 ('Belém', 'PA');
 
-alter table Cidade
+/* 1º alter */
+ alter table Cidade
 add column Regiao varchar (20) after UF;
 
 update Cidade set Regiao = case
@@ -205,18 +206,18 @@ INSERT INTO Consulta (Data_Consulta, Hora, Diagnóstico, Valor, idPaciente, idM�
 ('2027-12-30', '19:45', 'Caxumba', 'R$175.00', 9, 1, 1),
 ('2027-12-31', '21:00', 'Tuberculose', 'R$270.00', 10, 2, 3);
  
-insert into Convênio(Nome) values
-('IPE'),
-('Unimed'),
-('Bradesco Saúde'),
-('Hapvida'),
-('SulAmérica'),
-('Care Plus'),
-('Greenline Saúde'),
-('QSaúde'),
-('Amil'),
-('NotreDame Intermédica'),
-('Porto Seguro Saúde');
+insert into Convênio(Nome, idPaciente) values
+('IPE', 1),
+('Unimed', 0),
+('Bradesco Saúde', 2),
+('Hapvida', 4),
+('SulAmérica', 3),
+('Care Plus', 5),
+('Greenline Saúde', 6),
+('QSaúde', 7),
+('Amil', 8),
+('NotreDame Intermédica', 9),
+('Porto Seguro Saúde', 10);
 
 insert into Especialidade(Nome) values
 ('Demartologia'),
@@ -240,47 +241,48 @@ insert into Especialidade(Nome) values
 ('Reumatologia'),
 ('Pneumologia');
 
-INSERT INTO Exame (Data_Exame, Nome, Diagnóstico) VALUES
-('2020-01-15', 'Dermatoscopia', 'Lesão benigna removida com sucesso'),
-('2020-03-22', 'Eletrocardiograma', 'Arritmia leve detectada'),
-('2020-05-10', 'Glicemia', 'Níveis normais de glicose'),
-('2020-06-18', 'Colposcopia', 'Inflamação leve do colo uterino'),
-('2020-09-03', 'Ultrassonografia Obstétrica', 'Gestação de 12 semanas'),
-('2021-02-14', 'Ressonância magnética', 'Sem alterações cerebrais'),
-('2021-04-07', 'Tomografia', 'Fratura óssea identificada'),
-('2021-07-12', 'Raio-X', 'Lesão leve na clavícula'),
-('2021-08-21', 'Exames de sangue, urina e fezes', 'Deficiência de ferro detectada'),
-('2021-10-30', 'Avaliação clínica e psicológica', 'Transtorno de ansiedade leve'),
-('2022-01-11', 'Ultrassom', 'Órgãos abdominais normais'),
-('2022-02-25', 'PET-CT', 'Atividade tumoral ausente'),
-('2022-03-14', 'Hemograma Completo', 'Leucócitos ligeiramente elevados'),
-('2022-04-09', 'Ultrassonografia Abdominal', 'Fígado levemente aumentado'),
-('2022-06-05', 'Ecocardiograma', 'Função cardíaca preservada'),
-('2022-07-17', 'Endoscopia', 'Refluxo gastroesofágico moderado'),
-('2022-09-13', 'Colonoscopia', 'Pólipos benignos removidos'),
-('2022-10-08', 'Raio-X do Tórax', 'Sem alterações pulmonares'),
-('2022-12-21', 'Ressonância do Crânio', 'Desvio de septo nasal detectado'),
-('2023-01-16', 'Teste de Covid-19', 'Negativo'),
-('2023-03-28', 'Eletrocardiograma', 'Isquemia leve identificada'),
-('2023-04-22', 'Hemograma Completo', 'Plaquetas normais'),
-('2023-06-15', 'Dermatoscopia', 'Nevos sem risco de malignidade'),
-('2023-08-03', 'Glicemia', 'Pré-diabetes controlado'),
-('2023-09-20', 'Ultrassom', 'Rins com leve retenção líquida'),
-('2023-11-11', 'Colposcopia', 'Exame normal'),
-('2024-01-10', 'Raio-X do Tórax', 'Bronquite leve'),
-('2024-02-18', 'Ressonância do Crânio', 'Sinusite frontal detectada'),
-('2024-04-29', 'Endoscopia', 'Gastrite leve'),
-('2024-06-12', 'Teste de Covid-19', 'Positivo'),
-('2024-07-23', 'Ecocardiograma', 'Insuficiência cardíaca leve'),
-('2024-09-14', 'Tomografia', 'Lesão óssea cicatrizada'),
-('2024-10-28', 'Eletrocardiograma', 'Ritmo sinusal normal'),
-('2024-11-19', 'Ressonância magnética', 'Compressão lombar moderada'),
-('2025-01-07', 'Ultrassonografia Abdominal', 'Cisto renal simples'),
-('2025-02-15', 'Raio-X', 'Pulmões limpos'),
-('2025-03-10', 'Exames de sangue, urina e fezes', 'Resultados dentro da normalidade'),
-('2025-04-06', 'Ultrassonografia Obstétrica', 'Gestação saudável, 24 semanas'),
-('2025-05-17', 'Dermatoscopia', 'Eczema tratado'),
-('2025-06-29', 'Endoscopia', 'Úlcera cicatrizada');
+INSERT INTO Exame (Data_Exame, Nome, Diagnóstico, idPaciente, idMédico, idConsulta) VALUES
+('2020-01-15', 'Dermatoscopia', 'Lesão benigna removida com sucesso', 1, 2, 3),
+('2020-03-22', 'Eletrocardiograma', 'Arritmia leve detectada', 0, 1, 2),
+('2020-05-10', 'Glicemia', 'Níveis normais de glicose', 2, 3, 4),
+('2020-06-18', 'Colposcopia', 'Inflamação leve do colo uterino', 3, 4, 5),
+('2020-09-03', 'Ultrassonografia Obstétrica', 'Gestação de 12 semanas', 4, 5, 6),
+('2021-02-14', 'Ressonância magnética', 'Sem alterações cerebrais', 5, 6, 7),
+('2021-04-07', 'Tomografia', 'Fratura óssea identificada', 2, 1, 0),
+('2021-07-12', 'Raio-X', 'Lesão leve na clavícula', 3, 2, 1),
+('2021-08-21', 'Exames de sangue, urina e fezes', 'Deficiência de ferro detectada', 4, 2, 1),
+('2021-10-30', 'Avaliação clínica e psicológica', 'Transtorno de ansiedade leve', 5, 7, 9),
+('2022-01-11', 'Ultrassom', 'Órgãos abdominais normais', 10, 4, 2),
+('2022-02-25', 'PET-CT', 'Atividade tumoral ausente', 9, 4, 2),
+('2022-03-14', 'Hemograma Completo', 'Leucócitos ligeiramente elevados', 0, 1, 2),
+('2022-04-09', 'Ultrassonografia Abdominal', 'Fígado levemente aumentado', 1, 2, 3),
+('2022-06-05', 'Ecocardiograma', 'Função cardíaca preservada', 2, 3, 4),
+('2022-07-17', 'Endoscopia', 'Refluxo gastroesofágico moderado', 3, 4, 5),
+('2022-09-13', 'Colonoscopia', 'Pólipos benignos removidos', 4, 5, 6),
+('2022-10-08', 'Raio-X do Tórax', 'Sem alterações pulmonares', 5, 6, 7),
+('2022-12-21', 'Ressonância do Crânio', 'Desvio de septo nasal detectado', 6, 7, 8),
+('2023-01-16', 'Teste de Covid-19', 'Negativo', 7, 8, 9),
+('2023-03-28', 'Eletrocardiograma', 'Isquemia leve identificada', 8, 9, 10),
+('2023-04-22', 'Hemograma Completo', 'Plaquetas normais', 9, 10, 0),
+('2023-06-15', 'Dermatoscopia', 'Nevos sem risco de malignidade', 10, 0, 1),
+('2023-08-03', 'Glicemia', 'Pré-diabetes controlado', 0, 1, 2),
+('2023-09-20', 'Ultrassom', 'Rins com leve retenção líquida', 1, 2, 3),
+('2023-11-11', 'Colposcopia', 'Exame normal', 2, 3, 4),
+('2024-01-10', 'Raio-X do Tórax', 'Bronquite leve', 3, 4, 5),
+('2024-02-18', 'Ressonância do Crânio', 'Sinusite frontal detectada', 4, 5, 6),
+('2024-04-29', 'Endoscopia', 'Gastrite leve', 5, 6, 7),
+('2024-06-12', 'Teste de Covid-19', 'Positivo', 6, 7, 8),
+('2024-07-23', 'Ecocardiograma', 'Insuficiência cardíaca leve', 7, 8, 9),
+('2024-09-14', 'Tomografia', 'Lesão óssea cicatrizada', 8, 9, 10),
+('2024-10-28', 'Eletrocardiograma', 'Ritmo sinusal normal', 9, 10, 0),
+('2024-11-19', 'Ressonância magnética', 'Compressão lombar moderada', 10, 0, 1),
+('2025-01-07', 'Ultrassonografia Abdominal', 'Cisto renal simples', 0, 1, 2),
+('2025-02-15', 'Raio-X', 'Pulmões limpos', 1, 2, 3),
+('2025-03-10', 'Exames de sangue, urina e fezes', 'Resultados dentro da normalidade', 2, 3, 4),
+('2025-04-06', 'Ultrassonografia Obstétrica', 'Gestação saudável, 24 semanas', 3, 4, 5),
+('2025-05-17', 'Dermatoscopia', 'Eczema tratado', 4, 5, 6),
+('2025-06-29', 'Endoscopia', 'Úlcera cicatrizada', 5, 6, 7);
+
 
 insert into Médico (Nome, Crm, Telefone, Email, Cpf, idEspecialidade) values
 ('Dr. João Silva', 'CRM12345SP', '(11) 91234-5678', 'joao.silva@clinicavida.com', '123.456.789-00', '1'), /* Botar especilidade do medico*/
@@ -375,9 +377,12 @@ set Nome = "Marcelino Ramos"
 where Nome = "Erechim";
 
 /*Criar 3 ALTER TABLE em quaisquer das tabelas, podendo utilizar change ou modify.*/
-
+/* 1º alter na linha 134 */
 alter table Convênio
 add column RG varchar(100);
+
+alter table Consulta
+add column Sala varchar(20);
 
 /* 1º update */
 
@@ -400,9 +405,6 @@ UPDATE Convênio SET RG = '666777888' WHERE Cpf = '678.678.678-67';
 UPDATE Convênio SET RG = '777888999' WHERE Cpf = '789.789.789-78';
 UPDATE Convênio SET RG = '888999000' WHERE Cpf = '890.890.890-89';
 
-alter table Consulta
-add column Sala varchar(20);
-
 /* 2º Update */
 
 update Consulta set Sala = case
@@ -418,6 +420,8 @@ end;
 UPDATE Consulta
 SET Data_Consulta = '2023-05-02', Hora = '11:21'
 WHERE idConsulta = '9';
+
+/* Outros alter table */
 
 ALTER TABLE Consulta
 MODIFY COLUMN Sala VARCHAR(100)
@@ -452,36 +456,25 @@ SELECT Nome, UF, Regiao FROM Cidade ORDER BY Regiao ASC, Nome ASC;
 5x Inner join
 3x Left join */
 
-
-
 /* 5x Group by (3 funções com agregação) */
 		
-SELECT Sala, COUNT(idConsulta) 'Total_Consultas', MAX(Data_Consulta) 'Ultima_Consulta'
-FROM Consulta
-GROUP BY Sala
-ORDER BY Sala ASC;
-
-SELECT Nome 'Nome_Exame', COUNT(idExame) 'Total_Exames'
+SELECT médico.Nome 'Nome_Medico', COUNT(exame.idExame) 'Total_Exames', MIN(exame.Data_Exame) 'Primeiro_Exame', MAX(exame.Data_Exame) 'Ultimo_Exame'
 FROM Exame
-GROUP BY Nome
+INNER JOIN Médico ON exame.idMédico = médico.idMédico
+GROUP BY médico.Nome
 ORDER BY Total_Exames DESC;
 
-SELECT Diagnóstico, COUNT(idConsulta) 'Total_Consultas'
-FROM Consulta
-GROUP BY Diagnóstico
-ORDER BY Total_Consultas DESC;
+SELECT paciente.Nome 'Nome_Paciente', COUNT(exame.idExame) 'Total_Exames', MIN(exame.Data_Exame) 'Primeiro_Exame', MAX(exame.Data_Exame) 'Ultimo_Exame'
+FROM Exame
+INNER JOIN Paciente ON exame.idPaciente = paciente.idPaciente
+GROUP BY paciente.Nome
+ORDER BY Ultimo_Exame DESC;
 
-SELECT especialidade.Nome 'Especialidade', COUNT(médico.idMédico) 'Total_Medicos'
-FROM Médico 
-INNER JOIN Especialidade ON médico.idEspecialidade = especialidade.idEspecialidade
-GROUP BY especialidade.Nome
-ORDER BY Total_Medicos DESC;
+SELECT YEAR(exame.Data_Exame) 'Ano', COUNT(exame.idExame) 'Total_Exames', MIN(exame.Data_Exame) 'Primeiro_Exame_Ano', MAX(exame.Data_Exame) 'Ultimo_Exame_Ano' /* vai pegar os exames feitos no ano e as primeiras e as ultimas datas do exame*/
+FROM Exame 
+GROUP BY YEAR(exame.Data_Exame)
+ORDER BY Ano;
 
-SELECT cidade.Nome 'Cidade', COUNT(paciente.idPaciente) 'Total_Pacientes'
-FROM Paciente
-INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade
-GROUP BY cidade.Nome
-ORDER BY Total_Pacientes DESC;
 
 
 
@@ -511,9 +504,6 @@ INNER JOIN Convênio ON paciente.idConvênio = convênio.idConvênio;
 
 /* 3x Left join */
 
-SELECT consulta.idConsulta, consulta.Data_Consulta, consulta.Hora, consulta.Diagnóstico 'Diagnostico_Consulta', exame.Nome 'Nome_Exame', exame.Diagnóstico 'Diagnostico_Exame'
-FROM Consulta
-LEFT JOIN Exame ON consulta.idExame = exame.idExame;
 
 SELECT médico.Nome 'Nome_Medico', médico.Crm, especialidade.Nome 'Especialidade'
 FROM Médico
@@ -522,6 +512,10 @@ LEFT JOIN Especialidade ON médico.idEspecialidade = especialidade.idEspecialida
 SELECT paciente.Nome 'Nome_Paciente', paciente.Email, cidade.Nome 'Cidade', cidade.UF
 FROM Paciente 
 LEFT JOIN Cidade ON paciente.idCidade = cidade.idCidade;
+
+
+
+
 
 
 
