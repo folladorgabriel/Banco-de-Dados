@@ -23,8 +23,7 @@ idPaciente int not null auto_increment primary key,
 create table Convênio (
 idConvênio int not null auto_increment primary key,
     Nome varchar(100),
-    Cpf varchar(100),
-    Plano varchar(100)
+    Cpf varchar(100)
 );
 
 create table Médico (
@@ -128,7 +127,7 @@ insert into Cidade(Nome,UF) values
 ('Belém', 'PA');
 
 /* 1º alter */
- alter table Cidade
+alter table Cidade
 add column Regiao varchar (20) after UF;
 
 update Cidade set Regiao = case
@@ -331,12 +330,12 @@ insert into Paciente (Nome, Cpf, Data_Nascimento, Sexo, Telefone, Email, Endere�
 ('Tatiane Moraes Silva', '666.777.888-99', '1997-03-27', 'F', '(21) 98777-6655', 'tatiane.silva@email.com', 'Av. das Américas, 800', 'Barra da Tijuca', '5', '8'),
 ('Marcelo Augusto Pires', '777.888.999-00', '1989-11-10', 'M', '(11) 91222-3344', 'marcelo.pires@email.com', 'Rua das Palmeiras, 110', 'Moema', '1', '1'),
 ('Carolina Bastos Faria', '888.999.000-11', '1996-02-08', 'F', '(48) 99123-7788', 'carolina.faria@email.com', 'Rua Florianópolis, 78', 'Centro', '4', '2'),
-('Rodrigo Almeida Cunha', '999.000.111-22', '1981-09-25', 'M', '(85) 98812-9988', 'rodrigo.cunha@email.com', 'Av. Santos Dumont, 250', 'Aldeota', '6', '5'),
+('Rodrigo Almeida Cunha', '999.000.111-22', '1981-09-25', 'M', '(85) 98812-9988', 'rodrigo.cunha@email.com', 'Av. Santos Dumont, 250', 'Aldeota', '6', '22'),
 ('Fernanda Gomes Barros', '101.112.131-41', '1990-01-30', 'F', '(71) 99198-3344', 'fernanda.barros@email.com', 'Rua das Gaivotas, 65', 'Rio Vermelho', '7', '11'),
-('Eduardo Marques Pinto', '121.314.151-61', '1977-05-12', 'M', '(41) 99222-4433', 'eduardo.pinto@email.com', 'Av. Curitiba, 980', 'Centro', '9', '4'),
-('Gabriela Teles Monteiro', '141.516.171-81', '1995-12-21', 'F', '(62) 98777-5544', 'gabriela.monteiro@email.com', 'Rua Tocantins, 305', 'Setor Bueno', '8', '6'),
-('Leonardo Vieira Castro', '161.718.192-01', '1984-07-03', 'M', '(51) 99345-6677', 'leonardo.castro@email.com', 'Av. Ipiranga, 1000', 'Menino Deus', '10', '10'),
-('Patrícia Nunes Rocha', '181.920.212-23', '1992-10-19', 'F', '(54) 99678-8899', 'patricia.rocha@email.com', 'Rua Bento Gonçalves, 455', 'Centro', '3', '9');
+('Eduardo Marques Pinto', '121.314.151-61', '1977-05-12', 'M', '(41) 99222-4433', 'eduardo.pinto@email.com', 'Av. Curitiba, 980', 'Centro', '9', '21'),
+('Gabriela Teles Monteiro', '141.516.171-81', '1995-12-21', 'F', '(62) 98777-5544', 'gabriela.monteiro@email.com', 'Rua Tocantins, 305', 'Setor Bueno', '8', '18'),
+('Leonardo Vieira Castro', '161.718.192-01', '1984-07-03', 'M', '(51) 99345-6677', 'leonardo.castro@email.com', 'Av. Ipiranga, 1000', 'Menino Deus', '10', '17'),
+('Patrícia Nunes Rocha', '181.920.212-23', '1992-10-19', 'F', '(54) 99678-8899', 'patricia.rocha@email.com', 'Rua Bento Gonçalves, 455', 'Centro', '3', '16');
 
 
 /*Criar 3 UPDATES em quaisquer das tabelas..
@@ -344,7 +343,6 @@ Criar 3 UPDATES com Where em quaisquer das tabelas..
 Criar 3 ALTER TABLE em quaisquer das tabelas, podendo utilizar change ou modify..
 Criar 10 SELECT com Where (LIKE, IN, BETWEEN ETC)..
 Criar 5 SELECT que contenham ORDER BY*/
-
 
 /*Criar 3 UPDATES com Where em quaisquer das tabelas.*/
 
@@ -373,7 +371,7 @@ set Nome = "Marcelino Ramos"
 where Nome = "Erechim";
 
 /*Criar 3 ALTER TABLE em quaisquer das tabelas, podendo utilizar change ou modify.*/
-/* 1º alter na linha 134 */
+/* 1º alter na linha 131 */
 alter table Convênio
 add column RG varchar(100);
 
@@ -436,7 +434,6 @@ SELECT Data_Consulta, Diagnóstico, Sala FROM Consulta WHERE Diagnóstico LIKE '
 SELECT Nome FROM Especialidade WHERE Nome IN ('Cardiologia', 'Neurologia', 'Pediatria');
 SELECT Nome, Crm, Email FROM Médico WHERE idMédico BETWEEN 5 AND 10;
 SELECT Nome, Telefone, Email FROM Médico WHERE Email LIKE '%@clinicavida.com';
-SELECT Nome, Plano FROM Convênio WHERE Plano IN ('Cobertura Total', 'Cobertura Parcial em Consultas');
 SELECT Data_Exame, Nome, Diagnóstico FROM Exame WHERE Data_Exame BETWEEN '2022-01-01' AND '2023-12-31';
 SELECT Nome, Endereço, Bairro FROM Paciente WHERE Bairro LIKE '%Centro%';
 
@@ -450,7 +447,8 @@ SELECT Nome, UF, Regiao FROM Cidade ORDER BY Regiao ASC, Nome ASC;
 
 /* 5x Group by (3 funções com agregação)
 5x Inner join
-3x Left join */
+3x Left join
+2x Subconsultas */
 
 /* 5x Group by (3 funções com agregação) */
 		
@@ -460,11 +458,21 @@ INNER JOIN Médico ON exame.idMédico = médico.idMédico
 GROUP BY médico.Nome
 ORDER BY Total_Exames DESC;
 
+SELECT cidade.Nome 'Cidade', paciente.Sexo, COUNT(paciente.Sexo) 'Total sexo'
+FROM Paciente
+INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade
+GROUP BY cidade.Nome, paciente.Sexo;
+
 SELECT paciente.Nome 'Nome_Paciente', COUNT(exame.idExame) 'Total_Exames', MIN(exame.Data_Exame) 'Primeiro_Exame', MAX(exame.Data_Exame) 'Ultimo_Exame'
 FROM Exame
 INNER JOIN Paciente ON exame.idPaciente = paciente.idPaciente
 GROUP BY paciente.Nome
 ORDER BY Ultimo_Exame DESC;
+
+SELECT consulta.Diagnóstico 'Diagnóstico', COUNT(consulta.Diagnóstico) 'Número_Diagnósticos'
+FROM consulta
+GROUP BY consulta.Diagnóstico
+ORDER BY Número_Diagnósticos DESC;
 
 SELECT YEAR(exame.Data_Exame) 'Ano', COUNT(exame.idExame) 'Total_Exames', MIN(exame.Data_Exame) 'Primeiro_Exame_Ano', MAX(exame.Data_Exame) 'Ultimo_Exame_Ano' /* vai pegar os exames feitos no ano e as primeiras e as ultimas datas do exame*/
 FROM Exame 
@@ -478,7 +486,7 @@ SELECT paciente.Nome 'Nome_Paciente', paciente.Email, cidade.Nome 'Cidade', cida
 FROM Paciente
 INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade;
 
-SELECT paciente.Nome 'Nome_Paciente', paciente.Cpf, convênio.Nome 'Nome_Convenio', convênio.Plano
+SELECT paciente.Nome 'Nome_Paciente', paciente.Cpf, convênio.Nome 'Nome_Convenio'
 FROM Paciente 
 INNER JOIN Convênio ON paciente.idConvênio = convênio.idConvênio;
 
@@ -486,14 +494,16 @@ SELECT médico.Nome 'Nome_Medico', médico.Crm, especialidade.Nome 'Especialidad
 FROM Médico
 INNER JOIN Especialidade ON médico.idEspecialidade = especialidade.idEspecialidade;
 
-SELECT paciente.Nome 'Paciente', cidade.Nome 'Cidade'
-FROM Paciente 
-INNER JOIN Cidade ON paciente.idCidade = cidade.idCidade;
+SELECT consulta.Diagnóstico, COUNT(consulta.idPaciente) 'Número_De_Vezes_Registrados'
+FROM consulta
+INNER JOIN exame ON exame.idConsulta = consulta.Diagnóstico
+GROUP BY consulta.Diagnóstico;
 
-SELECT paciente.Nome 'Paciente', convênio.Nome 'Convenio', convênio.Plano
-FROM Paciente 
-INNER JOIN Convênio ON paciente.idConvênio = convênio.idConvênio;
-
+SELECT  paciente.Nome 'idPaciente', convênio.Nome 'Convênio' 
+from paciente
+INNER JOIN convênio on convênio.idConvênio = paciente.idConvênio
+Where paciente.Nome like '%A'
+Order by paciente.idPaciente desc;
 
 
 /* 3x Left join */
@@ -512,6 +522,12 @@ FROM Consulta
 LEFT JOIN Paciente ON consulta.idPaciente = paciente.idPaciente
 ORDER BY consulta.Data_Consulta;
 
+/* 2x Subconsultas */
+
+SELECT paciente.Nome 'Nome_do_Paciente', cidade.Nome 'Nome_Cidade', cidade.UF 'UF_da_Cidade'
+FROM paciente
+right JOIN cidade ON cidade.idCidade = paciente.idCidade
+where cidade.Nome in(select Nome from cidade where Nome like '%a'); 						
 
 
 
